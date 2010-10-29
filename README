@@ -1,0 +1,36 @@
+= ssh puppet module =
+
+Setup ssh clients and servers.
+
+== Classes ==
+ 
+  * client
+  * common
+  * server
+
+=== client ===
+
+Manages ssh-client package, some files permissions. Inherits
+common. Most importantly, import ssh keys from all ssh servers.
+
+=== server ===
+
+Manages ssh-server package, ssh user, some files permissions. Also, generates
+a virtual resource with the ssh key, to be imported by ssh clients. Inherits
+client.
+
+Variables
+*$host_aliases*: Array with any alias the host might have.
+
+=== common ===
+
+Manages ssh group and the /etc/ssh directory.
+
+== Definitions ==
+
+  * sshkey
+
+=== sshkey ===
+
+Used to export ssh key from.
+
