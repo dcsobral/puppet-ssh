@@ -15,12 +15,16 @@ class ssh::client inherits ssh::common {
             require => Package['openssh-client'];
         '/etc/ssh/ssh_known_hosts':
             mode  => 0644,
-            owner => root,
+            owner => 'root',
             group => 0;
     }
     
     # Now collect all server keys
-    Sshkey <<||>>
+    # Puppet clients older than 0.25 are being excluded,
+    # because they didn't have host_aliases
+    if versioncmp($puppetversion, '0.25.0') >= 0 {
+        Sshkey <<||>>
+    }
 }
 
 # vim modeline - have 'set modeline' and 'syntax on' in your ~/.vimrc.

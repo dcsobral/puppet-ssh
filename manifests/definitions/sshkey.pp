@@ -12,15 +12,15 @@ define ssh::sshkey ($host_aliases) {
                         type         => ssh-rsa,
                         key          => $sshrsakey,
                         ensure       => present,
-                        host_aliases => $host_aliases,
                         require      => Package["openssh-client"],
                     }
-            }
-                '': {
+                }
+                default: {
                     @@sshkey { "$fqdn":
                         type         => ssh-rsa,
                         key          => $sshrsakey,
                         ensure       => present,
+                        host_aliases => $host_aliases,
                         require      => Package["openssh-client"],
                     }
                 }
